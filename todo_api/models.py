@@ -10,11 +10,12 @@ class Status(models.Model):
 class ToDo(models.Model):
     name = models.CharField(max_length=200)
     status = models.ForeignKey(Status, on_delete=models.CASCADE, null=True)
-    updated = models.DateTimeField(auto_now=True)
+    progress = models.PositiveSmallIntegerField(default=1, blank=True, null=True)
+    due_date = models.DateTimeField(null=True)
     created = models.DateTimeField(auto_now_add=True)
     
     class Meta:
-        ordering = ['-updated', 'created']
+        ordering = ['created']
     
     def __str__(self):
         return self.name
