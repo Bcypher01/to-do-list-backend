@@ -1,10 +1,15 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from todo_api.models import ToDo
-from todo_api.serializers import ToDoSerializer
+from todo_api.models import Status, ToDo
+from todo_api.serializers import StatusSerializer, ToDoSerializer
 
 # Create your views here.
+class StatusApiView(APIView):
+    def get(self, request):
+        status = Status.objects.all()
+        serializer = StatusSerializer(status, many=True)
+        return Response(serializer.data)
 
 class ToDoApiView(APIView):
     def get(self, request):
